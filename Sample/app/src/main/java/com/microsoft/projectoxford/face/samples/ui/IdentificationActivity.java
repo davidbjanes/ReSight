@@ -379,6 +379,8 @@ public class IdentificationActivity extends AppCompatActivity{
                     // Clear the information panel.
                     setInfo("");
 
+                    // TODO -> Load image from Firebase, and save it as a Bitmap Object here.
+
                     // Start detecting in image.
                     detect(mBitmap);
                 }
