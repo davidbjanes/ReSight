@@ -168,13 +168,6 @@ public class IdentificationActivity extends AppCompatActivity{
         intentImageData.setData(imageUri);
 
         this.onActivityResult(0, -1, intentImageData);
-
-//        int wait = 0;
-//        while (detected == false) {
-//            wait = 1;
-//        }
-//
-//        this.identify(new View(this));
     }
 
     protected void onPostExecute(Face[] result){
