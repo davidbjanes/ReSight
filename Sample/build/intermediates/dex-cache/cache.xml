@@ -3,6 +3,132 @@
 
     <item
         is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/10.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="d08bb32b88df3dbcbe1d498c3c57f020b8c521ec">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-location-10.2.0_9f0786723f49d030a2ab8f3f236c6a1187c9b24e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.firebase/firebase-storage/10.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="8e1d31656bc9f1889283836e025e6cb703acd38a">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-10.2.0_b47a2bdad69a222f80adc9531f47b58a6689fe1e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/Cognitive-Face-Android/Sample/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="ed32ab89069cf9e45d93016e8a187a09903aaca3">
+        <dex dex="/Users/davidlaptop/StudioProjects/Cognitive-Face-Android/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_c51fe09967000603a7b886027e2f181e24a6ff8e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.firebase/firebase-common/10.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="0d5cbbbfe040201c7569478b70a13b58fd11aab4">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-common-10.2.0_e48b2a6953d1e49773cf080c4d2502bafb29b1e6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.microsoft.projectoxford/face/1.2.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="67415395780d9a92366195187a8b7702938e7218">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.microsoft.projectoxford-face-1.2.1_e1db3d2ba0f202da118fcf834720518c9e0e8be6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/Cognitive-Face-Android/Sample/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="983e2f375504bc04def18e709c35192afe92e65f">
+        <dex dex="/Users/davidlaptop/StudioProjects/Cognitive-Face-Android/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-22.1.0_e73005ff04567e09d256a2ad123c2c21b5829b63/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics-impl/10.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="ce9112e08a027c8620ae693983e38cdbb9f6371b">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-impl-10.2.0_62af3a3e554e25ec4ed095bfdfa8c80fe354dc15/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.1.0/support-annotations-22.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="281bc6c58ecb3644c23fbc5ee0452019f67b4d5d">
+        <dex dex="/Users/davidlaptop/StudioProjects/Cognitive-Face-Android/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-22.1.0_8faebf95a5d2cf7f9b96bbb2db4e13383c382cb4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth-base/10.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="4e01b82d664e1a8253b2b9658e74b5da35c8771d">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-base-10.2.0_bed37f26b258958347e8639880e97f2471c41389/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.firebase/firebase-messaging/10.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="75575883f0348fc5d2be85f23bd10b050095cf17">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-messaging-10.2.0_f8fc6d9b2d6fecf0ef714f4791c77e909adefb27/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/10.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="3d13e510077b35fe8e49930a627dd849ad5da0dc">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-base-10.2.0_4408d0aab7d82d3ac1c3df70d9ed1a2d21a5b3a7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="495888a2f7eb948726e89ed7abbb2f309374637c">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_ee92a249cebb6a55aad944c45a998e1dd27d3ee1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="ddde92b02f1530296a2f27bc274afa64477b9a51">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_e452a4a9cd4066094e4b55531fe40a9c82dcfb63/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.firebase/firebase-iid/10.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="3d6951cb416ebf8c66a32b9480808ca247b68344">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-iid-10.2.0_217affe354c14734cbaf51439607a83efcf30a9a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/davidlaptop/StudioProjects/Cognitive-Face-Android/Sample/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -18,6 +144,24 @@
         revision="21.1.2"
         sha1="67415395780d9a92366195187a8b7702938e7218">
         <dex dex="/Users/davidlaptop/StudioProjects/Cognitive-Face-Android/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.microsoft.projectoxford-face-1.2.1_441c3a296882be629777b6122df100e18e7e74f0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/10.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="b831d3902674d096189451d46fce219e2c2904b7">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-10.2.0_17a46e2cbae71a6c25c2ca3f9316a90ebeb867ee/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/3.5.2/ecf534dba3a8446ce84cbb797d314763be212a68/glide-3.5.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="ecf534dba3a8446ce84cbb797d314763be212a68">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/glide-3.5.2_fc0974d905ea4883c9507b47cc2eecc6a6655337/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -48,30 +192,93 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/davidlaptop/StudioProjects/Cognitive-Face-Android/Sample/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.firebase/firebase-analytics/10.2.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="21.1.2"
-        sha1="ed32ab89069cf9e45d93016e8a187a09903aaca3">
-        <dex dex="/Users/davidlaptop/StudioProjects/Cognitive-Face-Android/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_c51fe09967000603a7b886027e2f181e24a6ff8e/classes.dex" />
+        sha1="a61e7010aa7be5da53cd1bc5279630510c9a4912">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-analytics-10.2.0_bc45c2001ee3bed7886b1257db2c10f5e1058550/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/davidlaptop/StudioProjects/Cognitive-Face-Android/Sample/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.0/jars/classes.jar"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-tasks/10.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="bd75f9f0296fe220da6d0ad961831b04541c4452">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tasks-10.2.0_b391dea11e50a999fa6937819c87b73406dfc467/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/10.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="6da05b7498da036b5b37c3beb861cd2060929dcd">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-maps-10.2.0_26ad7c9ccf54d3be8b9a6fcf570149bd065611fc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/libs/internal_impl-24.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.0.0_ff144036f8d8facdb480dc91aba5794ba510accd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-24.0.0_7af5bd01157cb6ee96dbd5d844ca718483eeb636/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="21.1.2"
         sha1="983e2f375504bc04def18e709c35192afe92e65f">
-        <dex dex="/Users/davidlaptop/StudioProjects/Cognitive-Face-Android/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-22.1.0_e73005ff04567e09d256a2ad123c2c21b5829b63/classes.dex" />
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-22.1.0_880f3a6ec165b6de515aaade4a01dda6b9aa85ee/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/davidlaptop/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.1.0/support-annotations-22.1.0.jar"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-places/10.2.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="21.1.2"
-        sha1="281bc6c58ecb3644c23fbc5ee0452019f67b4d5d">
-        <dex dex="/Users/davidlaptop/StudioProjects/Cognitive-Face-Android/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-22.1.0_8faebf95a5d2cf7f9b96bbb2db4e13383c382cb4/classes.dex" />
+        sha1="654b294d429b56fd18392f2b68ad79954f431f8e">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-places-10.2.0_216bf1fc62506fda82a825ec36993218e0cfc82b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/10.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="1ac56e5801e986583cbe27f2cce57f626cc7ff93">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-basement-10.2.0_06132e73dc1fcf667385738af03c7c85ccafaff4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/24.0.0/support-annotations-24.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="2943c74db6d4346ab8c6531adac91fa05c137c40">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.0.0_e3dc71cdee9ab495e7fc088237f7253d728a46bb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/exploded-aar/com.google.firebase/firebase-storage-common/10.2.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="21.1.2"
+        sha1="1df6d719c4e264d66bb98baa5cb637495b8cca66">
+        <dex dex="/Users/davidlaptop/StudioProjects/ReSight CodeBase/Sample/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.firebase-firebase-storage-common-10.2.0_8f04067dee06556e1ec796c276bee37770c5e516/classes.dex" />
     </item>
 
 </items>

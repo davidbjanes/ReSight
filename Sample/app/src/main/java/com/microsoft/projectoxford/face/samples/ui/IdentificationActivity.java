@@ -36,10 +36,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +53,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.model.TileProvider;
+import com.google.firebase.storage.FileDownloadTask;
 import com.microsoft.projectoxford.face.FaceServiceClient;
 import com.microsoft.projectoxford.face.contract.Face;
 import com.microsoft.projectoxford.face.contract.IdentifyResult;
@@ -67,21 +72,45 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 
+// Firebase Example
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StreamDownloadTask;
 
-public class IdentificationActivity extends AppCompatActivity{
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.IBinder;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.File;
+
+public class IdentificationActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
+
+    // For TextToSpeech implementation
+    public void onInit(int initStatus) { }
 
     // Background task of face identification.
     private class IdentificationTask extends AsyncTask<UUID, String, IdentifyResult[]> {
         private boolean mSucceed = true;
         String mPersonGroupId;
+
         IdentificationTask(String personGroupId) {
             this.mPersonGroupId = personGroupId;
         }
@@ -89,7 +118,7 @@ public class IdentificationActivity extends AppCompatActivity{
         @Override
         protected IdentifyResult[] doInBackground(UUID... params) {
             String logString = "Request: Identifying faces ";
-            for (UUID faceId: params) {
+            for (UUID faceId : params) {
                 logString += faceId.toString() + ", ";
             }
             logString += " in group " + mPersonGroupId;
@@ -97,7 +126,7 @@ public class IdentificationActivity extends AppCompatActivity{
 
             // Get an instance of face service client to detect faces in image.
             FaceServiceClient faceServiceClient = SampleApp.getFaceServiceClient();
-            try{
+            try {
                 publishProgress("Getting person group status...");
 
                 TrainingStatus trainingStatus = faceServiceClient.getPersonGroupTrainingStatus(
@@ -116,7 +145,7 @@ public class IdentificationActivity extends AppCompatActivity{
                         this.mPersonGroupId,   /* personGroupId */
                         params,                  /* faceIds */
                         1);  /* maxNumOfCandidatesReturned */
-            }  catch (Exception e) {
+            } catch (Exception e) {
                 mSucceed = false;
                 publishProgress(e.getMessage());
                 addLog(e.getMessage());
@@ -139,6 +168,18 @@ public class IdentificationActivity extends AppCompatActivity{
         protected void onPostExecute(IdentifyResult[] result) {
             // Show the result on screen when detection is done.
             setUiAfterIdentification(result, mSucceed);
+
+            Intent checkTTSIntent = new Intent();
+            checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+            startActivityForResult(checkTTSIntent, MY_DATA_CHECK_CODE);
+
+            String words = "David";
+            //String words = result[0].faceId.toString();
+            //String words = result[0].candidates.get(0).personId.toString();
+            //speakWords(words);
+
+            //speak straight away
+            myTTS.speak(words, TextToSpeech.QUEUE_FLUSH, null);
         }
     }
 
@@ -149,6 +190,12 @@ public class IdentificationActivity extends AppCompatActivity{
     FaceListAdapter mFaceListAdapter;
 
     PersonGroupListAdapter mPersonGroupListAdapter;
+
+    //Set up storage reference called storageRef
+    StorageReference storageRef;
+
+    private TextToSpeech myTTS;
+    private int MY_DATA_CHECK_CODE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,14 +210,88 @@ public class IdentificationActivity extends AppCompatActivity{
         LogHelper.clearIdentificationLog();
 
         // My Code
-        Uri imageUri = Uri.parse("android.resource://" + getPackageName() + "/drawable/david1");
-        Intent intentImageData = new Intent();
-        intentImageData.setData(imageUri);
+//        storageRef = FirebaseStorage.getInstance().getReference();
+//        storageRef = storageRef.child("david5.JPG");
+//
+//        File localFile = null;
+//
+//        //Download file from firebase
+//        try{
+//            localFile = File.createTempFile("firebase_example", "JPG");
+//            FileDownloadTask fileDownloadTask = storageRef.getFile(localFile);
+//            OnSuccessListener successListener = new OnSuccessListener() {
+//                @Override
+//                public void onSuccess(Object o) {
+//                    Log.d("download", "success!");
+//                }
+//            };
+//            OnFailureListener failureListener = new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Log.d("download", "failure!");
+//                }
+//            };
+//            fileDownloadTask.addOnSuccessListener(successListener);
+//            fileDownloadTask.addOnFailureListener(failureListener);
+//
+//        }
+//
+//        catch(Exception e){
+//            Log.e("download",e.getMessage());
+//
+//        }
 
-        this.onActivityResult(0, -1, intentImageData);
+        // Start a background task to download image.
+        new DownloadTask("").execute();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please Wait");
     }
 
-    protected void onPostExecute(Face[] result){
+    // Background task of face identification.
+    private class DownloadTask extends AsyncTask<String, String, String> {
+
+        DownloadTask(String personGroupId) {};
+
+        @Override
+        protected String doInBackground(String... values) {
+            try {
+                //String src = storageRef.getDownloadUrl().toString();
+                String src = "https://firebasestorage.googleapis.com/v0/b/resight-d6b9c.appspot.com/o/david5.JPG?alt=media&token=111b57fb-f49a-4ab6-aa68-4a55f9eb4bee";
+                java.net.URL url = new java.net.URL(src);
+                HttpURLConnection connection = (HttpURLConnection) url
+                        .openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream input = connection.getInputStream();
+                Bitmap myBitmap = BitmapFactory.decodeStream(input);
+                mBitmap = myBitmap;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return "";
+        }
+
+        @Override
+        protected void onPreExecute() { }
+
+        @Override
+        protected void onProgressUpdate(String... values) { }
+
+        @Override
+        protected void onPostExecute(String values) {
+            Uri imageUri = Uri.parse("android.resource://" + getPackageName() + "/drawable/david1");
+            Intent intentImageData = new Intent();
+            intentImageData.setData(imageUri);
+
+            onActivityResult(0, -1, intentImageData);
+
+        }
+    }
+
+    protected void onPostExecute(Face[] result) {
         this.identify(new View(this));
     }
 
@@ -245,11 +366,11 @@ public class IdentificationActivity extends AppCompatActivity{
                 mFaceListAdapter.setIdentificationResult(result);
 
                 String logString = "Response: Success. ";
-                for (IdentifyResult identifyResult: result) {
+                for (IdentifyResult identifyResult : result) {
                     logString += "Face " + identifyResult.faceId.toString() + " is identified as "
                             + (identifyResult.candidates.size() > 0
-                                    ? identifyResult.candidates.get(0).personId.toString()
-                                    : "Unknown Person")
+                            ? identifyResult.candidates.get(0).personId.toString()
+                            : "Unknown Person")
                             + ". ";
                 }
                 addLog(logString);
@@ -267,7 +388,7 @@ public class IdentificationActivity extends AppCompatActivity{
         protected Face[] doInBackground(InputStream... params) {
             // Get an instance of face service client to detect faces in image.
             FaceServiceClient faceServiceClient = SampleApp.getFaceServiceClient();
-            try{
+            try {
                 publishProgress("Detecting...");
 
                 // Start detection.
@@ -278,7 +399,7 @@ public class IdentificationActivity extends AppCompatActivity{
                         /* Which face attributes to analyze, currently we support:
                            age,gender,headPose,smile,facialHair */
                         null);
-            }  catch (Exception e) {
+            } catch (Exception e) {
                 publishProgress(e.getMessage());
                 return null;
             }
@@ -328,7 +449,7 @@ public class IdentificationActivity extends AppCompatActivity{
             if (detected && mPersonGroupId != null) {
                 // Start a background task to identify faces in the image.
                 List<UUID> faceIds = new ArrayList<>();
-                for (Face face:  mFaceListAdapter.faces) {
+                for (Face face : mFaceListAdapter.faces) {
                     faceIds.add(face.faceId);
                 }
 
@@ -355,20 +476,26 @@ public class IdentificationActivity extends AppCompatActivity{
     // Called when image selection is done.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode)
-        {
+
+        if (requestCode == MY_DATA_CHECK_CODE) {
+            myTTS = new TextToSpeech(this, this);
+        }
+
+        switch (requestCode) {
             case REQUEST_SELECT_IMAGE:
-                if(resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK) {
                     detected = false;
 
                     // If image is selected successfully, set the image URI and bitmap.
                     Uri imageUri = data.getData();
-                    mBitmap = ImageHelper.loadSizeLimitedBitmapFromUri(
-                            imageUri, getContentResolver());
-                    if (mBitmap != null) {
-                        // Show the image on screen.
-                        ImageView imageView = (ImageView) findViewById(R.id.image);
-                        imageView.setImageBitmap(mBitmap);
+                    if (mBitmap == null) {
+                        mBitmap = ImageHelper.loadSizeLimitedBitmapFromUri(
+                                imageUri, getContentResolver());
+                        if (mBitmap != null) {
+                            // Show the image on screen.
+                            ImageView imageView = (ImageView) findViewById(R.id.image);
+                            imageView.setImageBitmap(mBitmap);
+                        }
                     }
 
                     // Clear the identification result.
@@ -415,7 +542,7 @@ public class IdentificationActivity extends AppCompatActivity{
         if (detected && mPersonGroupId != null) {
             // Start a background task to identify faces in the image.
             List<UUID> faceIds = new ArrayList<>();
-            for (Face face:  mFaceListAdapter.faces) {
+            for (Face face : mFaceListAdapter.faces) {
                 faceIds.add(face.faceId);
             }
 
@@ -500,7 +627,7 @@ public class IdentificationActivity extends AppCompatActivity{
 
             if (detectionResult != null) {
                 faces = Arrays.asList(detectionResult);
-                for (Face face: faces) {
+                for (Face face : faces) {
                     try {
                         // Crop face thumbnail with five main landmarks drawn from original image.
                         faceThumbnails.add(ImageHelper.generateFaceThumbnail(
@@ -541,14 +668,14 @@ public class IdentificationActivity extends AppCompatActivity{
         public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 LayoutInflater layoutInflater =
-                        (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = layoutInflater.inflate(
                         R.layout.item_face_with_description, parent, false);
             }
             convertView.setId(position);
 
             // Show the face thumbnail.
-            ((ImageView)convertView.findViewById(R.id.face_thumbnail)).setImageBitmap(
+            ((ImageView) convertView.findViewById(R.id.face_thumbnail)).setImageBitmap(
                     faceThumbnails.get(position));
 
             if (mIdentifyResults.size() == faces.size()) {
@@ -585,7 +712,7 @@ public class IdentificationActivity extends AppCompatActivity{
             Set<String> personGroupIds
                     = StorageHelper.getAllPersonGroupIds(IdentificationActivity.this);
 
-            for (String personGroupId: personGroupIds) {
+            for (String personGroupId : personGroupIds) {
                 personGroupIdList.add(personGroupId);
                 if (mPersonGroupId != null && personGroupId.equals(mPersonGroupId)) {
                     personGroupIdList.set(
@@ -615,7 +742,7 @@ public class IdentificationActivity extends AppCompatActivity{
         public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 LayoutInflater layoutInflater =
-                        (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = layoutInflater.inflate(R.layout.item_person_group, parent, false);
             }
             convertView.setId(position);
@@ -625,18 +752,159 @@ public class IdentificationActivity extends AppCompatActivity{
                     personGroupIdList.get(position), IdentificationActivity.this);
             int personNumberInGroup = StorageHelper.getAllPersonIds(
                     personGroupIdList.get(position), IdentificationActivity.this).size();
-            ((TextView)convertView.findViewById(R.id.text_person_group)).setText(
+            ((TextView) convertView.findViewById(R.id.text_person_group)).setText(
                     String.format(
                             "%s (Person count: %d)",
                             personGroupName,
                             personNumberInGroup));
 
             if (position == 0) {
-                ((TextView)convertView.findViewById(R.id.text_person_group)).setTextColor(
+                ((TextView) convertView.findViewById(R.id.text_person_group)).setTextColor(
                         Color.parseColor("#3399FF"));
             }
 
             return convertView;
+        }
+    }
+
+
+    /**
+     * Service to handle downloading files from Firebase Storage.
+     */
+    public class MyDownloadService {
+
+        private static final String TAG = "Storage#DownloadService";
+
+        /** Actions **/
+        public static final String ACTION_DOWNLOAD = "action_download";
+        public static final String DOWNLOAD_COMPLETED = "download_completed";
+        public static final String DOWNLOAD_ERROR = "download_error";
+
+        /** Extras **/
+        public static final String EXTRA_DOWNLOAD_PATH = "extra_download_path";
+        public static final String EXTRA_BYTES_DOWNLOADED = "extra_bytes_downloaded";
+
+        private StorageReference mStorageRef;
+
+        public void onCreate() {
+            // Initialize Storage
+            mStorageRef = FirebaseStorage.getInstance().getReference();
+        }
+
+        @Nullable
+        public IBinder onBind(Intent intent) {
+            return null;
+        }
+
+        public int onStartCommand(Intent intent, int flags, int startId) {
+            Log.d(TAG, "onStartCommand:" + intent + ":" + startId);
+
+            if (ACTION_DOWNLOAD.equals(intent.getAction())) {
+                // Get the path to download from the intent
+                String downloadPath = intent.getStringExtra(EXTRA_DOWNLOAD_PATH);
+                downloadFromPath(downloadPath);
+            }
+
+            return 0;
+        }
+
+        private void downloadFromPath(final String downloadPath) {
+            Log.d(TAG, "downloadFromPath:" + downloadPath);
+
+            // Mark task started
+            //taskStarted();
+            //showProgressNotification(getString(R.string.progress_downloading), 0, 0);
+
+            // Download and get total bytes
+            mStorageRef.child(downloadPath).getStream(
+                    new StreamDownloadTask.StreamProcessor() {
+                        @Override
+                        public void doInBackground(StreamDownloadTask.TaskSnapshot taskSnapshot,
+                                                   InputStream inputStream) throws IOException {
+                            long totalBytes = taskSnapshot.getTotalByteCount();
+                            long bytesDownloaded = 0;
+
+                            byte[] buffer = new byte[1024];
+                            int size;
+
+                            while ((size = inputStream.read(buffer)) != -1) {
+                                bytesDownloaded += size;
+                                //showProgressNotification(getString(R.string.progress_downloading),
+                                //        bytesDownloaded, totalBytes);
+                            }
+
+                            // Close the stream at the end of the Task
+                            inputStream.close();
+                        }
+                    })
+                    .addOnSuccessListener(new OnSuccessListener<StreamDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(StreamDownloadTask.TaskSnapshot taskSnapshot) {
+                            Log.d(TAG, "download:SUCCESS");
+
+                            // Send success broadcast with number of bytes downloaded
+                            broadcastDownloadFinished(downloadPath, taskSnapshot.getTotalByteCount());
+                            showDownloadFinishedNotification(downloadPath, (int) taskSnapshot.getTotalByteCount());
+
+                            // Mark task completed
+                            //taskCompleted();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Log.w(TAG, "download:FAILURE", exception);
+
+                            // Send failure broadcast
+                            broadcastDownloadFinished(downloadPath, -1);
+                            showDownloadFinishedNotification(downloadPath, -1);
+
+                            // Mark task completed
+                            //taskCompleted();
+                        }
+                    });
+        }
+
+        /**
+         * Broadcast finished download (success or failure).
+         * @return true if a running receiver received the broadcast.
+         */
+        private boolean broadcastDownloadFinished(String downloadPath, long bytesDownloaded) {
+            boolean success = bytesDownloaded != -1;
+            String action = success ? DOWNLOAD_COMPLETED : DOWNLOAD_ERROR;
+
+            Intent broadcast = new Intent(action)
+                    .putExtra(EXTRA_DOWNLOAD_PATH, downloadPath)
+                    .putExtra(EXTRA_BYTES_DOWNLOADED, bytesDownloaded);
+            return LocalBroadcastManager.getInstance(getApplicationContext())
+                    .sendBroadcast(broadcast);
+        }
+
+        /**
+         * Show a notification for a finished download.
+         */
+        private void showDownloadFinishedNotification(String downloadPath, int bytesDownloaded) {
+            // Hide the progress notification
+            //dismissProgressNotification();
+
+            // Make Intent to MainActivity
+            Intent intent = new Intent()
+                    .putExtra(EXTRA_DOWNLOAD_PATH, downloadPath)
+                    .putExtra(EXTRA_BYTES_DOWNLOADED, bytesDownloaded)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+            boolean success = bytesDownloaded != -1;
+            String caption = success ? "Success!" : "Failure";
+            //showFinishedNotification(caption, intent, true);
+        }
+
+
+        public IntentFilter getIntentFilter() {
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(DOWNLOAD_COMPLETED);
+            filter.addAction(DOWNLOAD_ERROR);
+
+            return filter;
         }
     }
 }

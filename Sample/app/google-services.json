@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "422785457085",
+    "firebase_url": "https://resight-d6b9c.firebaseio.com",
+    "project_id": "resight-d6b9c",
+    "storage_bucket": "resight-d6b9c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422785457085:android:f444a21a77d8904b",
+        "android_client_info": {
+          "package_name": "com.microsoft.projectoxford.face.samples"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422785457085-bhfo7mgiq6ddbuns9krl7okrbn0bilpk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_rFSfeZUGs2eZa34alqk2c4xbetvgZ_o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422785457085:android:b6d31df7b3ced624",
+        "android_client_info": {
+          "package_name": "com.microsoft.projectoxford.faceapisample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422785457085-llkfp4jjuatd4kmdlsmkf810e539turr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.microsoft.projectoxford.faceapisample",
+            "certificate_hash": "24c50b60cee05df617cdae7c5a4c48bc37c28efa"
+          }
+        },
+        {
+          "client_id": "422785457085-bhfo7mgiq6ddbuns9krl7okrbn0bilpk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_rFSfeZUGs2eZa34alqk2c4xbetvgZ_o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422785457085-bhfo7mgiq6ddbuns9krl7okrbn0bilpk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

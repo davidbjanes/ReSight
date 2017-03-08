@@ -36,8 +36,10 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.microsoft.projectoxford.face.samples.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
                     .setMessage(getString(R.string.add_subscription_key_tip))
                     .setCancelable(false)
                     .show();
+        }
+
+        String token = FirebaseInstanceId.getInstance().getToken();
+        if (token != null) {
+            Log.w("notification", token);
         }
     }
 
